@@ -11,12 +11,26 @@ socket.on('disconnect', function () {
 
 socket.on('newMessage', function(message) {
   console.log('new message recieved:', message);
+  var li = $('<li></li>');
+  li.text(`${message.from}: ${message.text}`)
+
+  $('#messages').append(li);
 });
 
-// socket.on('welcomeMessage', function(message){
-//   console.log(message);
-// });
-//
-// socket.on('newUser', function(message){
-//   console.log(message);
-// });
+socket.emit('createMessage', {
+  from: "another ME",
+  text: "hello"
+}, function (data) {
+  console.log('got it:', data);
+});
+
+$('#message-form').on('submit', function (e) {
+  e.preventDefault();
+
+  socket.emit('createMessage', {
+    from: 'user',
+    text: $('[name=message]').val()
+  }, function () {
+
+  });
+});
