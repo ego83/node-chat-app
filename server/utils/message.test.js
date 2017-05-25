@@ -19,9 +19,9 @@ describe('generateLocationMessage', () => {
     var from = "test";
     var lat = 5;
     var lon = 4;
-    var res  = generateLocationMessage(from, lat, lon);
-
     var url = `https://www.google.com/maps?q=${lat},${lon}`;
+
+    var res  = generateLocationMessage(from, lat, lon);
 
     expect(res.createdAt).toBeA('number');
     expect(res).toInclude({from, url});
